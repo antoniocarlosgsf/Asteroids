@@ -6,8 +6,8 @@ SND_DIR = path.join(path.dirname(__file__), 'imagens')
 FNT_DIR = path.join(path.dirname(__file__), 'imagens')
 
 # Dados gerais do jogo
-WIDTH = 720
-HEIDTH = 864
+WIDTH = 900
+HEIDTH = 900
 FPS = 30
 
 METEOR_WIDTH = 50
