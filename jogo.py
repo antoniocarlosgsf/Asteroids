@@ -3,6 +3,7 @@ import random
 from config import WIDTH, HEIDTH, INIT, GAME, GAMEOVER, QUIT
 from init_screen import init_screen
 from game_screen import game_screen
+from gameover_screen import gameover_screen
 
 
 pygame.init()
