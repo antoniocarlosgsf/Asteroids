@@ -11,6 +11,7 @@ SCORE_FONT = 'score_font'
 BOOM_SOUND = 'boom_sound'
 DESTROY_SOUND = 'destroy_sound'
 PEW_SOUND = 'pew_sound'
+INIT_IMG = ''
 
 def load_assets():
     assets = {}
