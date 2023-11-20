@@ -18,3 +18,4 @@ def load_assets():
     assets[METEOR_IMG] = pygame.image.load(os.path.join(IMG_DIR, 'meteoro2' ))
     assets[METEOR_IMG] = pygame.transform.scale(assets['meteor_img'], (METEOR_WIDTH, METEOR_HEIGTH))
     assets[SHIP_IMG] = pygame.image.load(os.path.join)
+    assets[SHIP_IMG] = pygame.transform.scale()
