@@ -19,7 +19,7 @@ class Meteor(pygame.sprite.Sprite):
 
 
 class Bullet(pygame.sprite.Sprite):
-
+    
 
 class Explosion(pygame.sprite.Sprite):
     
