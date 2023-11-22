@@ -7,7 +7,7 @@ FNT_DIR = path.join(path.dirname(__file__), 'Font')
 
 # Dados gerais do jogo
 WIDTH = 900
-HEIDTH = 900
+HEIGTH = 900
 FPS = 30
 
 METEOR_WIDTH = 50

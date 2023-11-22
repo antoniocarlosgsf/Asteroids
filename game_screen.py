@@ -1,7 +1,7 @@
 import pygame
 from config import FPS, WIDTH, HEIDTH, BLACK, YELLOW, RED
 from assets import load_assets, DESTROY_SOUND, BOOM_SOUND, SCORE_FONT
-from sprites import Nave, Meteor, Bullet, Explosion
+from classes import Nave, Meteor, Bullet, Explosion
 
 def game_screen(window):
     clock = pygame.time.Clock()

@@ -1,6 +1,6 @@
 import pygame
 import os
-from config import METEOR_WIDTH, METEOR_HEIGTH, SHIP_WIDTH, SHIP_HEIGTH, IMG_DIR, SND_DIR, FNT_DIR
+from config import METEOR_WIDTH, METEOR_HEIGTH, SHIP_WIDTH, SHIP_HEIGTH, IMG_DIR, SND_DIR, FNT_DIR, 
 
 
 BACKGROUND = 'background'
