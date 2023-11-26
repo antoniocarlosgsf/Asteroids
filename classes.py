@@ -38,6 +38,8 @@ class Jogo:
             self.nave.rotate(horario=True)
         elif pressionada[pygame.K_LEFT]:
             self.nave.rotate(horario=False)
+        if pressionada[pygame.K_UP]:
+            self.nave.acelerando()
 
     def logica_jogo(self):
         self.nave.updade()
@@ -73,11 +75,15 @@ class Nave(Objetos):
         self.direcao = Vector2(UP)
         super().__init__(posicao, load_sprite('Nave'), Vector2(0))
     ROTACAO = 3
+    ACELERACAO = 0.25
 
     def rotate(self, horario=True):
         sign = 1 if horario else -1
         angulo = self.ROTACAO*sign
         self.direction.rotate_ip(angulo)
+
+    def acelerando(self):
+        self.velocidade += self.direcao * self.ACELERACAO
 
     def draw(self, surface):
         angle = self.direction.angle_to(UP)
