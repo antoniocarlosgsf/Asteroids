@@ -10,34 +10,39 @@ def init_screen(screen):
     #Carregando a tela inicial
     tela_inicial = pygame.image.load(path.join(IMG_DIR, 'tela_inicial.png')).convert()
     tela_inicial_rect = tela_inicial.get_rect()
+    #Carregando a tela de game over
+    tela_game_over = pygame.image.load(path.join(IMG_DIR, 'Se lascou doidim(1).png')).convert()
+    tela_game_over_rect = tela_game_over.get_rect()
 
-    Statusjogo = True
-    while Statusjogo:
-        #ajustando a velocidade
+    Statusjogo = "inicio do jogo"
+
+    while True:
         clock.tick(FPS)
-        # Processando os eventos
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                state = QUIT  
-                Statusjogo = False
+                return QUIT
             if event.type == pygame.KEYUP:
-                state = GAME
-                Statusjogo = False
-        #redesenhando a tela após cada loop
+                if Statusjogo == "inicio do jogo":
+                    Statusjogo == "game"
+                elif Statusjogo == "game":
+                    Statusjogo == "game_over"
+                #vou adicionar ainda  a lógica para quando morre
+                elif Statusjogo == "game_over":
+                    if event.key == pygame.K_BACKSPACE:
+                        #tem que adicionar aqui a lógica para reiniciar
+                        Statusjogo ="game"
+                        reiniciar()#tem que botar a função de reinicio
+        
         screen.fill(BLACK)
-        screen.blit(tela_inicial,tela_inicial_rect)
 
-        # invertendo o display
+        if Statusjogo == "inicio do jogo":
+            screen.blit((tela_inicial,tela_inicial_rect))
+        elif Statusjogo == "game":
+            pass
+        elif Statusjogo == "game_over":
+            screen.blit(tela_game_over,tela_game_over_rect)
+        
         pygame.display.flip()
-    return state
-        
-            
 
-
-
-        
-
-
-
-
-
+                    
