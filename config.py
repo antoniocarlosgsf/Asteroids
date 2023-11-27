@@ -1,29 +1,25 @@
-from os import path
+#Biblioteca do Jogo
+import pygame
+#Tamanho da Janela  
+width = 800
+height = 800
 
-# Estabelece a pasta que contem as figuras e sons
-IMG_DIR = path.join(path.dirname(__file__), 'imagens')
-SND_DIR = path.join(path.dirname(__file__), 'sound')
-FNT_DIR = path.join(path.dirname(__file__), 'Font')
+gameover = False
+lives = 3
+score = 0
+rapidFire = False
+rfStart = -1
 
-# Dados gerais do jogo
-WIDTH = 900
-HEIGTH = 900
-FPS = 30
+#importando as imagens
+backgroud = pygame.image.load('img/starbg.png')
+player = pygame.image.load('img/player.png')
+meteorB = pygame.image.load('img/meteor1.png') 
+meteorM = pygame.image.load('img/meteor2.png') 
+meteorS = pygame.image.load('img/meteor3.png') 
+enemy = pygame.image.load('img/enemy.png')
+star = pygame.image.load('img/star.png')
 
-METEOR_WIDTH = 50
-METEOR_HEIGTH = 38
-SHIP_WIDTH = 40
-SHIP_HEIGTH = 31
 
-
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 0, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
-
-INIT = 0
-GAME = 1
-GAMEOVER = 2
-QUIT = 3
+#Configurações da Tela
+pygame.display.set_caption('Asteroids') 
+win = pygame.display.set_mode((width, height)) 
