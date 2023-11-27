@@ -1,122 +1,147 @@
 import pygame
-from config import FPS, WIDTH, HEIDTH, BLACK, YELLOW, RED
-from assets import load_assets, DESTROY_SOUND, BOOM_SOUND, SCORE_FONT
-from classes import Nave, Meteor, Bullet, Explosion
+import math
+from config import *
+import random
 
-def game_screen(window):
-    clock = pygame.time.Clock()
+class Player(object):
+    def _init_(self):
+        self.img = player
+        self.width = self.img.get_width()
+        self.height = self.img.get_height()
+        self.x = width/2
+        self.y = height/2
+        self.angle = 0
+        self.rotatedSurf = pygame.transform.rotate(self.img, self.angle)
+        self.rotatedRect = self.rotatedSurf.get_rect()
+        self.rotatedRect.center = (self.x, self.y)
+        self.cosine = math.cos(math.radians(self.angle + 90))
+        self.sine = math.sin(math.radians(self.angle + 90))
+        self.head = (self.x + self.cosine * self.width/2, self.y - self.sine * self.height/2)
 
-    assets = load_assets()
 
-    all_sprites = pygame.sprite.Group()
-    all_meteors = pygame.sprite.Group()
-    all_bullets = pygame.sprite.Group()
-    groups = {}
-    groups['all_sprites'] = all_sprites
-    groups['all_meteors'] = all_meteors
-    groups['all_bullets'] = all_bullets
+    #Método para desenhar o jogador na tela
+    def draw(self, win):
+        win.blit(self.rotatedSurf, self.rotatedRect)
 
-    # Criando o jogador
-    player = Nave(groups, assets)
-    all_sprites.add(player)
-    # Criando os meteoros
-    for i in range(8):
-        meteor = Meteor(assets)
-        all_sprites.add(meteor)
-        all_meteors.add(meteor)
+    def turnLeft(self):
+        self.angle += 5
+        self.rotatedSurf = pygame.transform.rotate(self.img, self.angle)
+        self.rotatedRect = self.rotatedSurf.get_rect()
+        self.rotatedRect.center = (self.x, self.y)
+        self.cosine = math.cos(math.radians(self.angle + 90))
+        self.sine = math.sin(math.radians(self.angle + 90))
+        self.head = (self.x + self.cosine * self.width/2, self.y - self.sine * self.height/2)
 
-    DONE = 0
-    PLAYING = 1
-    EXPLODING = 2
-    state = PLAYING
+        
+    def turnRight(self):
+        self.angle -= 5
+        self.rotatedSurf = pygame.transform.rotate(self.img, self.angle)
+        self.rotatedRect = self.rotatedSurf.get_rect()
+        self.rotatedRect.center = (self.x, self.y)
+        self.cosine = math.cos(math.radians(self.angle + 90))
+        self.sine = math.sin(math.radians(self.angle + 90))
+        self.head = (self.x + self.cosine * self.width/2, self.y - self.sine * self.height/2)
+    
+    def moveForward(self):
+        self.x += self.cosine * 6
+        self.y -= self.sine * 6
+        self.rotatedSurf = pygame.transform.rotate(self.img, self.angle)
+        self.rotatedRect = self.rotatedSurf.get_rect()
+        self.rotatedRect.center = (self.x, self.y)
+        self.cosine = math.cos(math.radians(self.angle + 90))
+        self.sine = math.sin(math.radians(self.angle + 90))
+        self.head = (self.x + self.cosine * self.width/2, self.y - self.sine * self.height/2)
+    # há a possibilidade de criar uma seta para trás 
+    
+    def updateLocation(self):
+        if self.x > width + 50:
+            self.x = 0
+        elif self.x < 0 - self.width:
+            self.x = width
+        elif self.y < -50:
+            self.y = height
+        elif self.y > height + 50:
+            self.y = 0
 
-    keys_down = {}
-    score = 0
-    lives = 3
 
-    # Loop principal
-    while state != DONE:
-        clock.tick(FPS)
+class Bullet(object):
+    def _init_(self):
+        self.point = player.head
+        self.x, self.y = self.point
+        self.width = 4
+        self.height = 4
+        self.c = player.cosine
+        self.s = player.sine
+        self.xv = self.c*10
+        self.yv = self.s*10
+    
+    
+    #Método para mover a bala
+    def move(self):
+        self.x += self.xv
+        self.y -= self.yv
+    
+    
+    #Método para desenhar a bala
+    def draw(self, win):
+        pygame.draw.rect(win, (255, 255, 255),[self.x, self.y, self.width, self.height])
+            #importante, não utilizo imagem da bala e sim o desenho dela
+    
+    
+    #Método para verificar se a bala está fora da tela
+    def checkoffScreen(self):
+        if self.x + self.width < 0 or self.x > width or self.y > height or self.y + self.height< 0:
+            return True 
 
-        # Trata eventos
-        for event in pygame.event.get():
-            # Verifica consequências
-            if event.type == pygame.QUIT:
-                state = DONE
-            if state == PLAYING:
-                if event.type == pygame.KEYDOWN:
-                    keys_down[event.key] = True
-                if event.key == pygame.K_LEFT:
-                    player.speedx = -4
-                if event.key == pygame.K_RIGHT:
-                    player.speedx += 4
-                if event.key == pygame.K_UP:
-                    player.speedy -= 4
-                if event.key == pygame.K_DOWN:
-                    player.speedy += 4
-                if event.key == pygame.K_SPACE:
-                    player.shoot()
-            # Verifica se soltou alguma tecla
-            if event.type == pygame.KEYUP:
-                if event.key in keys_down and keys_down[event.key]:
-                    if event.key == pygame.K_LEFT:
-                        player.speedx -= 4
-                    if event.key == pygame.K_RIGHT:
-                        player.speedx += 4
-                    if event.key == pygame.K_UP:
-                        player.speedy += 4
-                    if event.key == pygame.K_DOWN:
-                        player.speedy -= 4
-        # Atualiza estado do jogo
-        all_sprites.update()
 
-        if state == PLAYING:
-            # Verifica se houve colisão entre tiro e meteoro
-            hits = pygame.sprite.groupcollide(all_meteors, all_bullets, True, True, pygame.sprite.collide_mask)
-            for meteor in hits:
-                assets[DESTROY_SOUND].play()
-                m = Meteor(assets)
-                all_sprites.add(m)
-                all_meteors.add(m)
+class Asteroid(object):
+    def _init_(self, rank):
+        self.rank = rank
+        if self.rank == 1:
+            self.image = meteorS
+        
+        elif self.rank == 2:
+            self.image = meteorM
+            
+        else:
+            self.image = meteorB
+                    
+        self.width = 50 * rank
+        self.height = 50 * rank
+        #Esta linha cria um ponto de posição inicial aleatória para o asteroide, garantindo que ele comece fora da tela em uma das bordas.
+        self.ranPoint = random.choice([(random.randrange(0, width-self.width), random.choice([-1 * self.height - 5, height + 5])), (random.choice([-1 * self.width - 5, width + 5]), random.randrange(0, height - self.height))])
+        self.x, self.y = self.ranPoint
+        if self.x < width/2:
+            self.xdir = 1
+        else:
+            self.xdir = -1
+        if self.y < height/2:
+            self.ydir = 1
+        else:
+            self.ydir = -1
+        self.xv = self.xdir * random.randrange(1, 3)
+        self.yv = self.ydir * random.randrange(1, 3)
+    
+    def draw(self, win):
+        win.blit(self.image, (self.x, self.y))
 
-                # Adicionar uma explosão
-                explosao = Explosion(meteor.rect.center, assets)
-                all_sprites.add(explosao)
-
-                # Ganhou pontos!
-                score += 100
-                if score % 1000 == 0:
-                    lives += 1
-
-            # Verifica se houve colisão entre nave e meteoro
-            hits = pygame.sprite.spritecollide(player, all_meteors, True, pygame.sprite.collide_mask)
-            if len(hits) > 0:
-                # Toca o som da colisão
-                assets[BOOM_SOUND].play()
-                player.kill()
-                lives -= 1
-                explosao = Explosion(player.rect.center, assets)
-                all_sprites.add(explosao)
-                state = EXPLODING
-                keys_down = {}
-                explosion_tick = pygame.time.get_ticks()
-                explosion_duration = explosao.frame_ticks * len(explosao.explosion_anim) + 400
-
-        elif state == EXPLODING:
-            now = pygame.time.get_ticks()
-            if now - explosion_tick > explosion_duration:
-                if lives == 0:
-                    state = DONE
-                else:
-                    state == PLAYING
-                    player = Ship(groups, assets)
-                    all_sprites.add(player)
-
-        # Gerando saídas
-        window.fill(BLACK)
-        window.blit(assets[BACKGROUND], (0, 0))
-        # Desenhando meteóros
-        all_sprites.draw(window)
-
-        pygame.display.update()
-
+class Star(object):
+    def _init_(self):
+        self.img = star
+        self.width = self.img.get_width()
+        self.height = self.img.get_height()
+        self.ranPoint = random.choice([(random.randrange(0, width-self.width), random.choice([-1 * self.height - 5, height + 5])), (random.choice([-1 * self.width - 5, width + 5]), random.randrange(0, height - self.height))])  
+        self.x, self.y = self.ranPoint
+        if self.x < width/2:
+            self.xdir = 1
+        else:
+            self.xdir = -1
+        if self.y < height/2:
+            self.ydir = 1
+        else:
+            self.ydir = -1
+        self.xv = self.xdir * 2
+        self.yv = self.ydir * 2
+    
+    def draw(self, win):
+        win.blit(self.img, (self.x, self.y))

@@ -10,10 +10,6 @@ def load_sprite(nome, alpha=True):
     else:
         return loaded_sprite.convert()
     
-def wrap_position(posicao, tela):
-    x, y = posicao
-    w, h = tela.get_size()
 
-    return Vector
     
     
