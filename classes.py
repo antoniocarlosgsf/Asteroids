@@ -3,76 +3,75 @@ import math
 from config import *
 import random
 
-class Player(pygame.sprite.Sprite):
-    def init(self):
-        super().init()
-        self.image = player
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
-        self.rect = self.image.get_rect()
-        self.rect.x = width/2
-        self.rect.y = height/2   
+#Definindo a classe para o jogador
+#''object'' é opcional em python 3
+class Player(object):
+    def _init_(self):
+        self.img = player
+        self.width = self.img.get_width()
+        self.height = self.img.get_height()
+        self.x = width/2
+        self.y = height/2
+        
         
         
         self.angle = 0
-        self.rotatedSurf = pygame.transform.rotate(self.image, self.angle)
+        self.rotatedSurf = pygame.transform.rotate(self.img, self.angle)
         self.rotatedRect = self.rotatedSurf.get_rect()
-        self.rotatedRect.center = (self.rect.x, self.rect.y)
+        self.rotatedRect.center = (self.x, self.y)
         self.cosine = math.cos(math.radians(self.angle + 90))
         self.sine = math.sin(math.radians(self.angle + 90))
-        self.head = (self.rect.x + self.cosine * self.width/2, self.rect.y - self.sine * self.height/2)
+        self.head = (self.x + self.cosine * self.width/2, self.y - self.sine * self.height/2)
 
 
     #Método para desenhar o jogador na tela
     def draw(self, win):
         win.blit(self.rotatedSurf, self.rotatedRect)
-        self.mask.to_surface(win,dest=self.rotatedRect)
 
     def turnLeft(self):
         self.angle += 5
-        self.rotatedSurf = pygame.transform.rotate(self.image, self.angle)
+        self.rotatedSurf = pygame.transform.rotate(self.img, self.angle)
         self.rotatedRect = self.rotatedSurf.get_rect()
-        self.rotatedRect.center = (self.rect.x, self.rect.y)
+        self.rotatedRect.center = (self.x, self.y)
         self.cosine = math.cos(math.radians(self.angle + 90))
         self.sine = math.sin(math.radians(self.angle + 90))
-        self.head = (self.rect.x + self.cosine * self.width/2, self.rect.y - self.sine * self.height/2)
+        self.head = (self.x + self.cosine * self.width/2, self.y - self.sine * self.height/2)
 
         
     def turnRight(self):
         self.angle -= 5
-        self.rotatedSurf = pygame.transform.rotate(self.image, self.angle)
+        self.rotatedSurf = pygame.transform.rotate(self.img, self.angle)
         self.rotatedRect = self.rotatedSurf.get_rect()
-        self.rotatedRect.center = (self.rect.x, self.rect.y)
+        self.rotatedRect.center = (self.x, self.y)
         self.cosine = math.cos(math.radians(self.angle + 90))
         self.sine = math.sin(math.radians(self.angle + 90))
-        self.head = (self.rect.x + self.cosine * self.width/2, self.rect.y - self.sine * self.height/2)
+        self.head = (self.x + self.cosine * self.width/2, self.y - self.sine * self.height/2)
     
     def moveForward(self):
-        self.rect.x += self.cosine * 6
-        self.rect.y -= self.sine * 6
-        self.rotatedSurf = pygame.transform.rotate(self.image, self.angle)
+        self.x += self.cosine * 6
+        self.y -= self.sine * 6
+        self.rotatedSurf = pygame.transform.rotate(self.img, self.angle)
         self.rotatedRect = self.rotatedSurf.get_rect()
-        self.rotatedRect.center = (self.rect.x, self.rect.y)
+        self.rotatedRect.center = (self.x, self.y)
         self.cosine = math.cos(math.radians(self.angle + 90))
         self.sine = math.sin(math.radians(self.angle + 90))
-        self.head = (self.rect.x + self.cosine * self.width/2, self.rect.y - self.sine * self.height/2)
+        self.head = (self.x + self.cosine * self.width/2, self.y - self.sine * self.height/2)
     # há a possibilidade de criar uma seta para trás 
     
     def updateLocation(self):
-        if self.rect.x > width + 50:
-            self.rect.x = 0
-        elif self.rect.x < 0 - self.width:
-            self.rect.x = width
-        elif self.rect.y < -50:
-            self.rect.y = height
-        elif self.rect.y > height + 50:
-            self.rect.y = 0
+        if self.x > width + 50:
+            self.x = 0
+        elif self.x < 0 - self.width:
+            self.x = width
+        elif self.y < -50:
+            self.y = height
+        elif self.y > height + 50:
+            self.y = 0
 
 
 #Definindo a classe para a bala
 class Bullet(object):
-    def init(self, player):
-        
+    def _init_(self, player):
         self.point = player.head
         self.x, self.y = self.point
         self.width = 4
@@ -100,9 +99,8 @@ class Bullet(object):
         if self.x + self.width < 0 or self.x > width or self.y > height or self.y + self.height< 0:
             return True 
         
-class Asteroid(pygame.sprite.Sprite):
-    def init(self, rank):
-        super().init()
+class Asteroid(object):
+    def _init_(self, rank):
         self.rank = rank
         if self.rank == 1:
             self.image = meteorS
@@ -112,30 +110,27 @@ class Asteroid(pygame.sprite.Sprite):
             
         else:
             self.image = meteorB
-        self.rect = self.image.get_rect()
+                    
         self.width = 50 * rank
         self.height = 50 * rank
         #Esta linha cria um ponto de posição inicial aleatória para o asteroide, garantindo que ele comece fora da tela em uma das bordas.
         self.ranPoint = random.choice([(random.randrange(0, width-self.width), random.choice([-1 * self.height - 5, height + 5])), (random.choice([-1 * self.width - 5, width + 5]), random.randrange(0, height - self.height))])
-        self.rect.x, self.rect.y = self.ranPoint
-        if self.rect.x < width/2:
+        self.x, self.y = self.ranPoint
+        if self.x < width/2:
             self.xdir = 1
         else:
             self.xdir = -1
-        if self.rect.y < height/2:
+        if self.y < height/2:
             self.ydir = 1
         else:
             self.ydir = -1
         self.xv = self.xdir * random.randrange(1, 3)
         self.yv = self.ydir * random.randrange(1, 3)
-        self.mask = pygame.mask.from_surface(self.image)
-        # self.mask.invert()
     
     def draw(self, win):
-        win.blit(self.image, (self.rect.x, self.rect.y))
-        self.mask.to_surface(win,dest=(self.rect.x, self.rect.y))
+        win.blit(self.image, (self.x, self.y))
 class Star(object):
-    def init(self):
+    def _init_(self):
         self.img = star
         self.width = self.img.get_width()
         self.height = self.img.get_height()
