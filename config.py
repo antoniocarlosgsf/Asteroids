@@ -10,16 +10,19 @@ height = 800
 #importando as imagens
 backgroud = pygame.image.load('imagens/starbg.png')
 player = pygame.image.load('imagens/player.png')
+player = pygame.transform.scale(player, (50, 50))
 meteorB = pygame.image.load('imagens/meteor1.png') 
 meteorM = pygame.image.load('imagens/meteor2.png') 
 meteorS = pygame.image.load('imagens/meteor3.png') 
 star = pygame.image.load('imagens/star.png')
+
 
 # Importando sons
 explosion_sound = pygame.mixer.Sound('sound/explosion_sound.wav')
 laser = pygame.mixer.Sound('sound/laser.wav')
 meteor_boom = pygame.mixer.Sound('sound/expl3.wav')
 levelup_sound = pygame.mixer.Sound('sound/levelup_sound.wav')
+pew_sound = pygame.mixer.Sound('sound/laser.wav')
 
 #Configurações da Tela
 pygame.display.set_caption('Asteroids') 

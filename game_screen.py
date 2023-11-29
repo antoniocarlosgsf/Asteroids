@@ -35,11 +35,11 @@ def loop_jogo():
         clock.tick(50)
         count += 1
         if not gameover:
-            if count % 50 == 0:
+            if count % 40 == 0:
                 ran = random.choice([1, 1, 1, 2, 2, 3])
                 asteroids.append(Asteroid(ran))
             
-            if count % 1000 == 0:
+            if count % 2000 == 0:
                 stars.append(Star())
 
             player.updateLocation()
@@ -59,7 +59,6 @@ def loop_jogo():
                         explosion_sound.play()
                         player = Player()
                         break
-                
                 
                 for b in playerBullets:
                     if (b.x >= a.x and b.x <= a.x + a.width) or b.x + b.width >= a.x and b.x + b.width <= a.x +a.width:
@@ -96,7 +95,6 @@ def loop_jogo():
                             
                             break
 
-
             for s in stars:
                 s.x += s.xv
                 s.y += s.yv
@@ -113,15 +111,12 @@ def loop_jogo():
                             levelup_sound.play()
                             break
             
-
             if lives <= 0:
                 gameover = True
             if rfStart != -1:
                 if count - rfStart > 500:
                     rapidFire = False
                     rfStart = -1
-
-
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT]:
@@ -133,20 +128,19 @@ def loop_jogo():
             if keys[pygame.K_SPACE]:
                 if rapidFire:
                     playerBullets.append(Bullet(player))
+                    pew_sound.play()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 estado = SAIR
                 run = False
-              
-            
-            
             
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     if not gameover:
                         if not rapidFire:
                             playerBullets.append(Bullet(player))
+                            pew_sound.play()
 
         if gameover:
             estado = FINAL
