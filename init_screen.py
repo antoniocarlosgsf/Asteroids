@@ -1,48 +1,35 @@
 import pygame
-import random
-from os import path
-from config import IMG_DIR, BLACK, FPS, GAME, QUIT
+from config import *
 
-def init_screen(screen):
-    #Ajuste da velocidade
+
+
+def init_screen():
+
     clock = pygame.time.Clock()
-    
-    #Carregando a tela inicial
-    tela_inicial = pygame.image.load(path.join(IMG_DIR, 'tela_inicial.png')).convert()
-    tela_inicial_rect = tela_inicial.get_rect()
-    #Carregando a tela de game over
-    tela_game_over = pygame.image.load(path.join(IMG_DIR, 'Se lascou doidim(1).png')).convert()
-    tela_game_over_rect = tela_game_over.get_rect()
 
-    Statusjogo = "inicio do jogo"
+    background = pygame.image.load('img/AirShip.png')
+    background = pygame.transform.scale(background, (width, height))
+    background_rect = background.get_rect()
 
-    while True:
-        clock.tick(FPS)
+    running = True
+    while running:
+
+        clock.tick(50)
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return QUIT
-            if event.type == pygame.KEYUP:
-                if Statusjogo == "inicio do jogo":
-                    Statusjogo == "game"
-                elif Statusjogo == "game":
-                    Statusjogo == "game_over"
-                #vou adicionar ainda  a lógica para quando morre
-                elif Statusjogo == "game_over":
-                    if event.key == pygame.K_BACKSPACE:
-                        #tem que adicionar aqui a lógica para reiniciar
-                        Statusjogo ="game"
-                        reiniciar()#tem que botar a função de reinicio
-        
-        screen.fill(BLACK)
 
-        if Statusjogo == "inicio do jogo":
-            screen.blit((tela_inicial,tela_inicial_rect))
-        elif Statusjogo == "game":
-            pass
-        elif Statusjogo == "game_over":
-            screen.blit(tela_game_over,tela_game_over_rect)
+            if event.type == pygame.QUIT:
+                estado = SAIR
+                running = False
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    estado = JOGANDO
+                    running = False
         
+        win.fill(BLACK)
+        win.blit(background, background_rect)
+
         pygame.display.flip()
 
-                    
+    return estado
