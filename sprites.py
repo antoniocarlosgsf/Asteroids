@@ -129,8 +129,8 @@ class Asteroid():
             self.ydir = 1
         else:
             self.ydir = -1
-        self.xv = self.xdir * random.randrange(1, 3)
-        self.yv = self.ydir * random.randrange(1, 3)
+        self.xv = self.xdir * random.randrange(4, 6)
+        self.yv = self.ydir * random.randrange(4, 6)
     
     # Desenhando
     def draw(self, win):
