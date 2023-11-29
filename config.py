@@ -30,3 +30,5 @@ SAIR = 0
 INICIAL = 1
 JOGANDO = 2
 FINAL = 3
+
+BLACK = (0,0,0)
