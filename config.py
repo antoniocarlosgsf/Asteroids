@@ -1,5 +1,7 @@
+# Importando o pygame
 import pygame
 
+# Iniciando o mixer 
 pygame.mixer.init()
 
 #Definindo o tamanho da tela
@@ -7,7 +9,7 @@ width = 800
 height = 800
 
 
-#importando as imagens
+# Importando as imagens
 backgroud = pygame.image.load('imagens/starbg.png')
 player = pygame.image.load('imagens/player.png')
 player = pygame.transform.scale(player, (50, 50))
@@ -25,19 +27,21 @@ levelup_sound = pygame.mixer.Sound('sound/levelup_sound.wav')
 pew_sound = pygame.mixer.Sound('sound/laser.wav')
 
 #Configurações da Tela
-pygame.display.set_caption('Asteroids') 
+pygame.display.set_caption('AirShip') 
 win = pygame.display.set_mode((width, height))
 
-#Definindo uma variável para o jogo
+# Definindo uma variáveis para o jogo
 gameover = False
 lives = 3
 score = 0
 rapidFire = False
 rfStart = -1
 
+# Variáveis de conctrole
 SAIR = 0
 INICIAL = 1
 JOGANDO = 2
 FINAL = 3
 
+# Cor
 BLACK = (0,0,0)
