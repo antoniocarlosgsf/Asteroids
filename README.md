@@ -17,3 +17,4 @@
     sprites - Guarda as classes do jogo como Player, Asteroides e outros
 
 3. IMPORTANTE: Para iniciar o jogo, rode o arquivo "main"
+4. Link com uma demonstração breve sobre o jogo: https://youtu.be/94IHfjVuxGc

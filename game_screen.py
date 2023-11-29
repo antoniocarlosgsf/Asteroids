@@ -17,7 +17,7 @@ clock = pygame.time.Clock()
 def loop_jogo():
     # Tocando a música do jogo
     pygame.mixer.music.load('sound/game_sound.wav')
-    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.set_volume(0.99)
     pygame.mixer.music.play(loops=-1)
 
     # Definindo algumas variáveis utilizadas
@@ -47,7 +47,7 @@ def loop_jogo():
 
         if not gameover:
             # Criando asteroides
-            if count % 40 == 0:
+            if count % 30 == 0:
                 ran = random.choice([1, 1, 1, 2, 2, 3])
                 asteroids.append(Asteroid(ran))
             
