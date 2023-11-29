@@ -4,6 +4,9 @@ from config import *
 
 
 def init_screen():
+    pygame.mixer.music.load('sound/inicial_sound.wav')
+    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.play(loops=-1)
 
     clock = pygame.time.Clock()
 

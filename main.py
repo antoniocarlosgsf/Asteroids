@@ -5,6 +5,7 @@ from game_screen import loop_jogo
 from init_screen import init_screen
 from gameover_screen import gameover_screen
 
+pygame.mixer.init()
 
 estado = INICIAL
 
@@ -12,7 +13,7 @@ estado = INICIAL
 while estado != SAIR: 
     if estado == INICIAL:
         estado = init_screen()
-        
+
     elif estado == JOGANDO:
         out = loop_jogo()
         estado = out[0]

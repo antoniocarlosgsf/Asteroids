@@ -1,5 +1,7 @@
 import pygame
 
+pygame.mixer.init()
+
 #Definindo o tamanho da tela
 width = 800
 height = 800
@@ -13,6 +15,11 @@ meteorM = pygame.image.load('imagens/meteor2.png')
 meteorS = pygame.image.load('imagens/meteor3.png') 
 star = pygame.image.load('imagens/star.png')
 
+# Importando sons
+explosion_sound = pygame.mixer.Sound('sound/explosion_sound.wav')
+laser = pygame.mixer.Sound('sound/laser.wav')
+meteor_boom = pygame.mixer.Sound('sound/expl3.wav')
+levelup_sound = pygame.mixer.Sound('sound/levelup_sound.wav')
 
 #Configurações da Tela
 pygame.display.set_caption('Asteroids') 

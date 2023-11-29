@@ -7,20 +7,16 @@ import random
 
 
 pygame.init()
+pygame.mixer.init()
 
 clock = pygame.time.Clock() 
 
-#Inicializando jogador e lista de balas
-player = Player()
-playerBullets= []
-asteroids = []
-count = 0
-stars = [Star()]
-#Loop principal do jogo
 
-playing = 4
-perdeu = 5
 def loop_jogo():
+    pygame.mixer.music.load('sound/game_sound.wav')
+    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.play(loops=-1)
+
     out = []
     gameover = False
     lives = 3
@@ -60,6 +56,7 @@ def loop_jogo():
                     if (player.y >= a.y and player.y <= a.y + a.height) or player.y + player.height >= a.y and player.y + player.height <= a.y + a.height:
                         lives -= 1
                         asteroids.pop(asteroids.index(a))
+                        explosion_sound.play()
                         player = Player()
                         break
                 
@@ -77,6 +74,7 @@ def loop_jogo():
                                 na2.y = a.y
                                 asteroids.append(na1)
                                 asteroids.append(na2)
+                                meteor_boom.play()
 
                             elif a.rank == 2:
                                 score += 20
@@ -88,10 +86,14 @@ def loop_jogo():
                                 na2.y = a.y
                                 asteroids.append(na1)
                                 asteroids.append(na2)
+                                meteor_boom.play()
                             else:
                                 score += 30
+                                meteor_boom.play()
                             asteroids.pop(asteroids.index(a))
                             playerBullets.pop(playerBullets.index(b))
+                            #meteor_boom.play
+                            
                             break
 
 
@@ -108,6 +110,7 @@ def loop_jogo():
                             rfStart = count
                             stars.pop(stars.index(s))
                             playerBullets.pop(playerBullets.index(b))
+                            levelup_sound.play()
                             break
             
 
