@@ -13,7 +13,6 @@ while estado != SAIR:
     if estado == INICIAL:
         estado = init_screen()
         
-    
     elif estado == JOGANDO:
         out = loop_jogo()
         estado = out[0]

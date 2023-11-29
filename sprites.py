@@ -6,7 +6,7 @@ import random
 #Definindo a classe para o jogador
 #''object'' é opcional em python 3
 class Player(object):
-    def _init_(self):
+    def __init__(self):
         self.img = player
         self.width = self.img.get_width()
         self.height = self.img.get_height()
@@ -71,7 +71,7 @@ class Player(object):
 
 #Definindo a classe para a bala
 class Bullet(object):
-    def _init_(self, player):
+    def __init__(self, player):
         self.point = player.head
         self.x, self.y = self.point
         self.width = 4
@@ -100,7 +100,7 @@ class Bullet(object):
             return True 
         
 class Asteroid(object):
-    def _init_(self, rank):
+    def __init__(self, rank):
         self.rank = rank
         if self.rank == 1:
             self.image = meteorS
@@ -130,7 +130,7 @@ class Asteroid(object):
     def draw(self, win):
         win.blit(self.image, (self.x, self.y))
 class Star(object):
-    def _init_(self):
+    def __init__(self):
         self.img = star
         self.width = self.img.get_width()
         self.height = self.img.get_height()

@@ -6,13 +6,12 @@ height = 800
 
 
 #importando as imagens
-backgroud = pygame.image.load('img/starbg.png')
-player = pygame.image.load('img/player.png')
-meteorB = pygame.image.load('img/meteor1.png') 
-meteorM = pygame.image.load('img/meteor2.png') 
-meteorS = pygame.image.load('img/meteor3.png') 
-#bullet = pygame.image.load('img/bullet.png')  #nao foi utilizada, criei a bala com o "draw"
-star = pygame.image.load('img/star.png')
+backgroud = pygame.image.load('imagens/starbg.png')
+player = pygame.image.load('imagens/player.png')
+meteorB = pygame.image.load('imagens/meteor1.png') 
+meteorM = pygame.image.load('imagens/meteor2.png') 
+meteorS = pygame.image.load('imagens/meteor3.png') 
+star = pygame.image.load('imagens/star.png')
 
 
 #Configurações da Tela

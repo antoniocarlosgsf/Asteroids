@@ -60,6 +60,7 @@ def loop_jogo():
                     if (player.y >= a.y and player.y <= a.y + a.height) or player.y + player.height >= a.y and player.y + player.height <= a.y + a.height:
                         lives -= 1
                         asteroids.pop(asteroids.index(a))
+                        player = Player()
                         break
                 
                 
@@ -129,14 +130,6 @@ def loop_jogo():
             if keys[pygame.K_SPACE]:
                 if rapidFire:
                     playerBullets.append(Bullet(player))
-        
-        if gameover:
-            estado = FINAL
-            run = False
-            pontos = score
-            out.append(estado)
-            out.append(pontos)
-
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -151,6 +144,13 @@ def loop_jogo():
                     if not gameover:
                         if not rapidFire:
                             playerBullets.append(Bullet(player))
+
+        if gameover:
+            estado = FINAL
+            run = False
+            pontos = score
+            out.append(estado)
+            out.append(pontos)
                     
         redrawGameWindow(asteroids, playerBullets, stars, count, player, score, lives, gameover)
 

@@ -7,7 +7,7 @@ def init_screen():
 
     clock = pygame.time.Clock()
 
-    background = pygame.image.load('img/AirShip.png')
+    background = pygame.image.load('imagens/AirShip.png')
     background = pygame.transform.scale(background, (width, height))
     background_rect = background.get_rect()
 
