@@ -9,10 +9,10 @@ def redrawGameWindow(asteroids, playerBullets, stars, count, player, score, live
     # Definindo janela fontes, textos, tamanhos e cores
     win.blit(backgroud, (0,0))
     font = pygame.font.SysFont('arial', 40) #Alterei para 40
-    livesText = font.render('Lives: ' + str(lives), 1, (255, 255, 255))
+    livesText = font.render('Lives: ' + str(lives), 1, WHITE)
     fontAgain = pygame.font.SysFont('arial', 60) #minha
-    playAgainText = fontAgain.render('Pressione Espaço para jogar novamente', 1, (255, 255, 255))
-    scoreText = font.render('Score: ' + str(score), 1, (255, 255, 255))
+    playAgainText = fontAgain.render('Pressione Espaço para jogar novamente', 1, WHITE)
+    scoreText = font.render('Score: ' + str(score), 1, WHITE)
 
     # Desenhando os objetos do jogo
     player.draw(win)
@@ -26,7 +26,7 @@ def redrawGameWindow(asteroids, playerBullets, stars, count, player, score, live
     # Desenha barra de tempo do poder
     if rapidFire:
         pygame.draw.rect(win, (0, 0, 0), [width/2 - 51, 19, 102, 22])
-        pygame.draw.rect(win, (255, 255, 255), [width/2 - 50, 20, 100 - 100 * (count - rfStart)/500, 20])
+        pygame.draw.rect(win, WHITE, [width/2 - 50, 20, 100 - 100 * (count - rfStart)/500, 20])
     
     
     # Blitando a vida e a pontuação
