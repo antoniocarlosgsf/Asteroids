@@ -1,14 +1,12 @@
 # Importações
 import pygame
 from config import *
-
+from funcoes import playMusic
 
 # Função da tela de game over
 def gameover_screen(entrada):
     # Som da tela inicial
-    pygame.mixer.music.load('sound/gameover_sound.wav')
-    pygame.mixer.music.set_volume(0.4)
-    pygame.mixer.music.play(loops = 1)
+    playMusic('sound/gameover_sound.wav')
     
     # Clock
     clock = pygame.time.Clock()

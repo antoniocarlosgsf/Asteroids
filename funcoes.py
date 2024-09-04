@@ -33,3 +33,8 @@ def redrawGameWindow(asteroids, playerBullets, stars, count, player, score, live
     win.blit(scoreText, (width - scoreText.get_width() - 25, 25))
     win.blit(livesText, (25, 25))
     pygame.display.update()
+
+def playMusic(caminho):
+    pygame.mixer.music.load(caminho)
+    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.play(loops = 1)
