@@ -1,14 +1,13 @@
 # Importações
 import pygame
 from config import *
+from funcoes import playMusic
 
 
 # Função da tela inicial
 def init_screen():
     # Som de game over
-    pygame.mixer.music.load('sound/inicial_sound.wav')
-    pygame.mixer.music.set_volume(0.4)
-    pygame.mixer.music.play(loops=-1)
+    playMusic('sound/inicial_sound.wav')
 
     # Clock
     clock = pygame.time.Clock()

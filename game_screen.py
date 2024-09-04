@@ -2,7 +2,7 @@
 import pygame
 import math
 from config import *
-from funcoes import redrawGameWindow
+from funcoes import redrawGameWindow, playMusic
 from sprites import *
 import random
 
@@ -16,10 +16,8 @@ clock = pygame.time.Clock()
 # Loop principal do jogo
 def loop_jogo():
     # Tocando a música do jogo
-    pygame.mixer.music.load('sound/game_sound.wav')
-    pygame.mixer.music.set_volume(0.99)
-    pygame.mixer.music.play(loops=-1)
-
+    playMusic('sound/game_sound.wav')
+    
     # Definindo algumas variáveis utilizadas
     out = []
     gameover = False

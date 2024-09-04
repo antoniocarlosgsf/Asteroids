@@ -91,7 +91,7 @@ class Bullet():
     
     # Desenhando a bala
     def draw(self, win):
-        pygame.draw.rect(win, (255, 255, 255),[self.x, self.y, self.width, self.height])
+        pygame.draw.rect(win, WHITE,[self.x, self.y, self.width, self.height])
         
     # Verificando se a bala está fora da tela
     def checkoffScreen(self):
